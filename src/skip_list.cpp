@@ -95,3 +95,176 @@ bool SkipList<K, V>::search_element(const K& key) {
     }
 }
 
+/**
+    使用互斥锁保护并发操作，从最高级索引开始查找待删除节点，并记录每一层的前一节点。
+    从底层开始，逐层删除指定键的节点，并更新前一节点的指针，同时检查是否需要降低索引层数。
+    删除成功后打印成功信息，释放节点内存，更新元素数量，并返回 true。
+    如果未找到指定键的节点，则打印错误信息并返回 false。
+*/
+template<typename K, typename V> 
+bool SkipList<K, V>::delete_element(const K& key) {
+    // 加锁
+    m_mtx.lock();
+
+    Node<K, V>* current = m_header;
+    std::vector<Node<K, V>* > update(m_max_level + 1, nullptr);
+
+    // 从最高级索引开始删
+    for(int i = m_skip_list_level; i >= 0; --i) {
+        while (current->forward[i] !=NULL && current->forward[i]->get_key() < key) {
+            current = current->forward[i];
+        }
+        update[i] = current; // 记录前一节点
+    }
+    current = current->forward[0]; // 移动到底层
+    
+    if(current && current->get_key() == key) {
+        // 从下往上删
+        for(int i = 0; i <= m_skip_list_level; ++i) {
+            if(update[i]->forward[i] != current) break;
+            update[i]->forward[i] = current->forward[i];  // update[i]->forward[i]->forward[i]
+        }
+        
+        // 检查是否需要降低索引层数
+        while(m_skip_list_level > 0 && m_header->forward[m_skip_list_level] == nullptr) {
+            --m_skip_list_level;
+        }
+        std::cout << "Successfully deleted (" << key << ", " << current->get_value() << ")" << std::endl;
+        delete current;
+        --m_element_count;
+            
+        m_mtx.unlock();
+
+        return true;
+    } 
+
+    error_handing("Not Found Key.");
+    return false;
+}
+
+
+/**
+    使用互斥锁保护并发操作，从最高级索引开始查找插入位置，并记录每一层的前一节点。
+    如果键已经存在于跳表中，则打印错误信息，解锁并返回 false。
+    如果键不存在于跳表中，根据随机层数生成新节点，并逐层插入到跳表中。
+    插入成功后打印成功信息，更新元素数量，并返回 true。
+*/
+template<typename K, typename V>
+bool SkipList<K, V>::insert_element(const K& key, const V& value) {
+    
+    m_mtx.lock();
+    Node<K, V>* current = m_header;
+
+    std::vector<Node<K, V>* > update(m_max_level + 1, nullptr);
+
+    // 找到插入位置
+    for(int i = m_skip_list_level; i >= 0; --i) {
+        while(current->forward[i] && current->forward[i]->get_key() < key) {
+            current = current->forward[i];
+        }
+        update[i] = current;  // 记录前一节点，可能在update后面插入
+    }  
+    current = current->forward[0];
+
+    // key 存在
+    if(current && current->get_key() == key) {
+        error_handing("Key already exists.");
+
+        m_mtx.unlock();
+        return false;
+    }
+
+    // key 不存在
+    if(current == nullptr || current->get_key() != key) {
+        int random_level = get_random_level();
+        if(random_level > m_skip_list_level) {
+            for(int i = m_skip_list_level + 1; i <= random_level; ++i) {
+                update[i] = m_header;  // 新的一层索引
+            }
+            m_skip_list_level = random_level;
+        }
+        
+        // 要插入的节点, level为存在于的最高层
+        Node<K, V>* newNode = create_node(key, value, random_level);
+        // insert node
+        for(int i = 0; i <= random_level; ++i) {
+            newNode->forward[i] = update[i]->forward[i];
+            update[i]->forward[i] = newNode;
+        }
+        std::cout << "Successfully inserted." << std::endl;
+        ++m_element_count;
+    }
+
+    m_mtx.unlock();
+    return true;
+}
+
+// 打印由输入参数提供的错误信息，使用 '*' 符号创建上下边界，并输出到标准输出流。
+template<typename K, typename V>
+void SkipList<K,V>::error_handing(const std::string& arg) {
+    int len = arg.size();
+    std::string cutoffLine('*', len + 5);
+    std::cout << cutoffLine <<'\n';
+    std::cout << arg << '\n';
+    std::cout << cutoffLine <<'\n';
+}
+
+template<typename K, typename V>
+const std::string SkipList<K,V>::FILE_PATH = "./dump_file";
+
+// 打开指定路径的文件进行写入操作，遍历链表将节点的键值对写入文件，最后关闭文件。
+template<typename K, typename V>
+void SkipList<K, V>::dump_file() {
+    std::cout << "Dumping File ...\n";
+    m_file_writer.open(FILE_PATH);
+    Node<K, V>* trav = m_header->forward[0];
+    while(trav) {
+        m_file_writer << trav->get_key() << ":" << trav->get_value() << "\n";
+        trav = trav->forward[0];
+    }
+    m_file_writer.flush();
+    m_file_writer.close();
+}
+
+// 打开指定路径的文件进行读取操作，逐行解析键值对并插入到跳表中，最后关闭文件。
+template<typename K, typename V>
+void SkipList<K, V>::load_file() {
+    m_file_reader.open(FILE_PATH);
+    std::cout << "Loading File ...\n";
+    std::string line;
+    std::string* key = new std::string();
+    std::string* value = new std::string();
+    std::cout << "File opening...\n";
+    while(getline(m_file_reader, line)) {
+        get_key_value_from_string(line, key, value);
+        if(key->empty() || value->empty()) 
+            continue;
+        
+        std::cout << "load (" << *key << ", " << *value << ")\n";
+        insert_element(std::stoi(*key), *value);
+    }
+    std::cout<<"File close.\n";
+    m_file_reader.close();
+}
+
+
+template<typename K, typename V>
+int SkipList<K, V>::size() {
+    return m_element_count;
+}
+
+// 从输入字符串中解析出键值对，使用指定的分隔符进行分割，并将解析结果存储在传入的 key 和 value 字符串指针中。
+template<typename K, typename V>
+void SkipList<K, V>::get_key_value_from_string(const std::string& str, std::string* key, std::string* value) {
+    if(!is_valid_string(str)) return ;
+    *key = str.substr(0, str.find(m_delimiter));
+    *value = str.substr(str.find(m_delimiter) + 1, str.length());
+}
+
+
+template<typename K, typename V>
+bool SkipList<K, V>::is_valid_string(const std::string& str) {
+    if(str.empty()) return false;
+    if(str.find(m_delimiter) == std::string::npos) return false;
+    return true;
+}

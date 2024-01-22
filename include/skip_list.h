@@ -38,14 +38,15 @@ public:
     bool search_element(const K& key);
 
     // 按键删除
-    bool delete_element(const K&);
+    bool delete_element(const K& key);
 
     // 添加元素, 成功返回true, 失败给出错误信息并返回false
-    bool insert_element(const K&, const V&);
+    bool insert_element(const K& key, const V& value);
 
     // 错误信息展示
-    void error_handing(const std::string& content);
+    void error_handing(const std::string& arg);
 
+    // 将内存中的数据转储到文件
     void dump_file();
     void load_file();
 
@@ -61,4 +62,5 @@ public:
     std::mutex m_mtx;
     // 键值对中键和值的分隔符
     std::string m_delimiter = ":";
+    static const std::string FILE_PATH;
 };
