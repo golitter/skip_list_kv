@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/skip_list_kv.dir/main.cpp.o"
   "CMakeFiles/skip_list_kv.dir/main.cpp.o.d"
+  "CMakeFiles/skip_list_kv.dir/src/node.cpp.o"
+  "CMakeFiles/skip_list_kv.dir/src/node.cpp.o.d"
   "CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.o"
   "CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.o.d"
   "skip_list_kv"
