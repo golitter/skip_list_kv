@@ -291,6 +291,7 @@ void SkipList<K, V>::dump_file() {
         trav = trav->forward[0];
     }
     m_file_writer.flush();
+    std::cout<<"Finish dump file.\n";
     m_file_writer.close();
 }
 
@@ -310,6 +311,7 @@ void SkipList<K, V>::load_file() {
         
         std::cout << "load (" << *key << ", " << *value << ")\n";
         insert_element(std::stoi(*key), *value);
+        // std::cout<<*value<<'\n';
     }
     std::cout<<"File close.\n";
     m_file_reader.close();
