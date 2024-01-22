@@ -1,1 +1,1 @@
-/usr/bin/g++ -g -rdynamic CMakeFiles/skip_list_kv.dir/main.cpp.o -o skip_list_kv 
+/usr/bin/g++ -g -rdynamic CMakeFiles/skip_list_kv.dir/main.cpp.o CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.o -o skip_list_kv 

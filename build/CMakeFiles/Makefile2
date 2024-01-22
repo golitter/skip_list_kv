@@ -837,12 +837,12 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/skip_list_kv.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/golitter/learn_cpp_dir/skip_list_kv/build/CMakeFiles --progress-num=1,2 "Built target skip_list_kv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/golitter/learn_cpp_dir/skip_list_kv/build/CMakeFiles --progress-num=1,2,3 "Built target skip_list_kv"
 .PHONY : CMakeFiles/skip_list_kv.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/skip_list_kv.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/golitter/learn_cpp_dir/skip_list_kv/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/golitter/learn_cpp_dir/skip_list_kv/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/skip_list_kv.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/golitter/learn_cpp_dir/skip_list_kv/build/CMakeFiles 0
 .PHONY : CMakeFiles/skip_list_kv.dir/rule
