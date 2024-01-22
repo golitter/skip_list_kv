@@ -131,7 +131,7 @@ void SkipList<K, V>::display_list() {
     std::cout << "\n***** Skip List: *****\n";
     for(int i = m_skip_list_level; i >= 0; --i) {
         Node<K, V>* trav = m_header->forward[i];
-        std::cout << "* Level " << i << ": ";
+        std::cout << "* Level " << i << ": \n";
         while(trav) {
             std::cout << "    (" << trav->get_key() << ", " << trav->get_value() << ") \n";
             trav = trav->forward[i];
