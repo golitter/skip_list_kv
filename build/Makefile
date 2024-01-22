@@ -547,54 +547,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/node.o: src/node.cpp.o
-.PHONY : src/node.o
-
-# target to build an object file
-src/node.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/node.cpp.o
-.PHONY : src/node.cpp.o
-
-src/node.i: src/node.cpp.i
-.PHONY : src/node.i
-
-# target to preprocess a source file
-src/node.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/node.cpp.i
-.PHONY : src/node.cpp.i
-
-src/node.s: src/node.cpp.s
-.PHONY : src/node.s
-
-# target to generate assembly for a file
-src/node.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/node.cpp.s
-.PHONY : src/node.cpp.s
-
-src/skip_list.o: src/skip_list.cpp.o
-.PHONY : src/skip_list.o
-
-# target to build an object file
-src/skip_list.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.o
-.PHONY : src/skip_list.cpp.o
-
-src/skip_list.i: src/skip_list.cpp.i
-.PHONY : src/skip_list.i
-
-# target to preprocess a source file
-src/skip_list.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.i
-.PHONY : src/skip_list.cpp.i
-
-src/skip_list.s: src/skip_list.cpp.s
-.PHONY : src/skip_list.s
-
-# target to generate assembly for a file
-src/skip_list.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/skip_list_kv.dir/build.make CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.s
-.PHONY : src/skip_list.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -638,12 +590,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/node.o"
-	@echo "... src/node.i"
-	@echo "... src/node.s"
-	@echo "... src/skip_list.o"
-	@echo "... src/skip_list.i"
-	@echo "... src/skip_list.s"
 .PHONY : help
 
 

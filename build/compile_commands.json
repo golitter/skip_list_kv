@@ -3,15 +3,5 @@
   "directory": "/home/golitter/learn_cpp_dir/skip_list_kv/build",
   "command": "/usr/bin/g++  -I/home/golitter/learn_cpp_dir/skip_list_kv -I/home/golitter/learn_cpp_dir/skip_list_kv/./include -g -o CMakeFiles/skip_list_kv.dir/main.cpp.o -c /home/golitter/learn_cpp_dir/skip_list_kv/main.cpp",
   "file": "/home/golitter/learn_cpp_dir/skip_list_kv/main.cpp"
-},
-{
-  "directory": "/home/golitter/learn_cpp_dir/skip_list_kv/build",
-  "command": "/usr/bin/g++  -I/home/golitter/learn_cpp_dir/skip_list_kv -I/home/golitter/learn_cpp_dir/skip_list_kv/./include -g -o CMakeFiles/skip_list_kv.dir/src/skip_list.cpp.o -c /home/golitter/learn_cpp_dir/skip_list_kv/src/skip_list.cpp",
-  "file": "/home/golitter/learn_cpp_dir/skip_list_kv/src/skip_list.cpp"
-},
-{
-  "directory": "/home/golitter/learn_cpp_dir/skip_list_kv/build",
-  "command": "/usr/bin/g++  -I/home/golitter/learn_cpp_dir/skip_list_kv -I/home/golitter/learn_cpp_dir/skip_list_kv/./include -g -o CMakeFiles/skip_list_kv.dir/src/node.cpp.o -c /home/golitter/learn_cpp_dir/skip_list_kv/src/node.cpp",
-  "file": "/home/golitter/learn_cpp_dir/skip_list_kv/src/node.cpp"
 }
 ]
