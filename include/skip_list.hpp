@@ -10,6 +10,10 @@
 #include <cstdlib>
 #include <iostream>
 
+// 定义该宏，在插入时不显示任何插入的信息
+#define _STRESS_TEST_
+
+
 template<typename K, typename V>
 class SkipList {
 private:
@@ -244,7 +248,10 @@ bool SkipList<K, V>::insert_element(const K& key, const V& value) {
 
     // key 存在
     if(current && current->get_key() == key) {
+
+#ifndef _STRESS_TEST_
         error_log("Key already exists.");
+#endif
         m_mtx.unlock();
         return false;
     }
@@ -266,7 +273,9 @@ bool SkipList<K, V>::insert_element(const K& key, const V& value) {
             newNode->forward[i] = update[i]->forward[i];
             update[i]->forward[i] = newNode;
         }
+#ifndef _STRESS_TEST_
         std::cout << "Successfully inserted.\n";
+#endif
         ++m_element_count;
     }
 
@@ -279,9 +288,9 @@ template<typename K, typename V>
 void SkipList<K,V>:: error_log(const std::string& arg) {
     int len = arg.size();
     std::string cutoffLine(len + 5, '*');
-    std::cout << cutoffLine <<'\n';
-    std::cout << arg << '\n';
-    std::cout << cutoffLine <<'\n';
+    std::cout << cutoffLine<<'\n';
+    std::cout << arg<<'\n';
+    std::cout << cutoffLine<<'\n';
 }
 
 

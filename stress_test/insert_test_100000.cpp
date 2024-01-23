@@ -5,8 +5,11 @@
 #include <time.h>
 #include "../include/skip_list.hpp"  // 请替换为实际的头文件路径
 
+
 #define NUM_THREADS 1  // 根据需要设置线程数量
-#define TEST_COUNT 100000
+// #define TEST_COUNT 1000000
+int TEST_COUNT = 100000;
+int MAX_LEVEL = 18;
 SkipList<int, std::string> skipList(18);
 
 void *insertElement(void* threadid) {
@@ -20,8 +23,19 @@ void *insertElement(void* threadid) {
     }
     pthread_exit(NULL);
 }
+// 10万
+void test_100000();
+
+
 
 int main() {
+    test_100000();
+    return 0;
+}
+
+void test_100000() {
+    TEST_COUNT = 100000;
+    // skipList = SkipList<int, std::string>(MAX_LEVEL);
     srand (time(NULL));  
     pthread_t threads[NUM_THREADS];
 
@@ -44,9 +58,8 @@ int main() {
             exit(3);
         }
     }
-
     auto finish = std::chrono::high_resolution_clock::now(); 
     std::chrono::duration<double> elapsed = finish - start;
     std::cout << "Insert elapsed: " << elapsed.count() << " seconds" << std::endl;
-    return 0;
+    std::cout<<"Insertions per second: "<< TEST_COUNT * 1.0 / elapsed.count() <<std::endl;
 }
