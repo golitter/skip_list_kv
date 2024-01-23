@@ -54,8 +54,8 @@ public:
     int size();
 
 private:
-    void get_key_value_from_string(const std::string&, std::string*, std::string*);
-    bool is_valid_string(const std::string&);
+    void get_key_value_from_string(const std::string& str, std::string& key, std::string& value);
+    bool is_valid_string(const std::string& str);
 
 public:
     // 保护多线程环境中的插入、删除等操作
@@ -300,17 +300,15 @@ template<typename K, typename V>
 void SkipList<K, V>::load_file() {
     m_file_reader.open(FILE_PATH);
     std::cout << "Loading File ...\n";
-    std::string line;
-    std::string* key = new std::string();
-    std::string* value = new std::string();
+    std::string line, key, value;
     std::cout << "File opening...\n";
     while(getline(m_file_reader, line)) {
         get_key_value_from_string(line, key, value);
-        if(key->empty() || value->empty()) 
+        if(key.empty() || value.empty()) 
             continue;
         
-        std::cout << "load (" << *key << ", " << *value << ")\n";
-        insert_element(std::stoi(*key), *value);
+        std::cout << "load (" << key << ", " << value << ")\n";
+        insert_element(std::stoi(key), value);
         // std::cout<<*value<<'\n';
     }
     std::cout<<"File close.\n";
@@ -325,10 +323,10 @@ int SkipList<K, V>::size() {
 
 // 从输入字符串中解析出键值对，使用指定的分隔符进行分割，并将解析结果存储在传入的 key 和 value 字符串指针中。
 template<typename K, typename V>
-void SkipList<K, V>::get_key_value_from_string(const std::string& str, std::string* key, std::string* value) {
+void SkipList<K, V>::get_key_value_from_string(const std::string& str, std::string& key, std::string& value) {
     if(!is_valid_string(str)) return ;
-    *key = str.substr(0, str.find(m_delimiter));
-    *value = str.substr(str.find(m_delimiter) + 1, str.length());
+    key = str.substr(0, str.find(m_delimiter));
+    value = str.substr(str.find(m_delimiter) + 1, str.length());
 }
 
 
