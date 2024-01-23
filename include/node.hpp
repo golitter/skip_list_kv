@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 
 /* 定义跳表结点 */
 template<typename K, typename V>
@@ -21,14 +22,12 @@ public:
 
     /**
         forward 是一个数组，其中存储了当前节点在每一层的下一个节点的指针。
-
     */
-    std::vector<Node<K, V>* > forward;
+    std::vector<std::shared_ptr<Node<K, V>>> forward;
 };
 
 
 // **************** 实现 *******************
-
 
 template<typename K, typename V>
 Node<K, V>::Node(const K& key, const V& value, int level) : m_key(key), m_value(value), m_level(level) {
