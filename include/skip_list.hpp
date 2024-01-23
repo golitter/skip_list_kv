@@ -158,7 +158,7 @@ bool SkipList<K, V>::search_element(const K& key) {
         std::cout << "Found: (Key = " << key << ", Value = " << current->get_value() << ").\n";
         return true;
     } else {
-     error_log("Not Found Key.");
+        error_log("Not Found Key.");
         return false;
     }
 }
@@ -244,8 +244,7 @@ bool SkipList<K, V>::insert_element(const K& key, const V& value) {
 
     // key 存在
     if(current && current->get_key() == key) {
-     error_log("Key already exists.");
-
+        error_log("Key already exists.");
         m_mtx.unlock();
         return false;
     }
@@ -267,7 +266,7 @@ bool SkipList<K, V>::insert_element(const K& key, const V& value) {
             newNode->forward[i] = update[i]->forward[i];
             update[i]->forward[i] = newNode;
         }
-        std::cout << "Successfully inserted." << std::endl;
+        std::cout << "Successfully inserted.\n";
         ++m_element_count;
     }
 
@@ -279,7 +278,7 @@ bool SkipList<K, V>::insert_element(const K& key, const V& value) {
 template<typename K, typename V>
 void SkipList<K,V>:: error_log(const std::string& arg) {
     int len = arg.size();
-    std::string cutoffLine('*', len + 5);
+    std::string cutoffLine(len + 5, '*');
     std::cout << cutoffLine <<'\n';
     std::cout << arg << '\n';
     std::cout << cutoffLine <<'\n';
