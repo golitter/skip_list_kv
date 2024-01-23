@@ -81,10 +81,8 @@ SkipList<K, V>::SkipList(int max_level) {
     m_skip_list_level = 0; // 初始化当前最高索引级别
     m_element_count = 0; // 初始化节点数
 
-    K k;
-    V v;
     // 创建头节点
-    m_header = std::make_shared<Node<K, V>>(k, v, max_level);
+    m_header = std::make_shared<Node<K, V>>(K(), V(), max_level);
  };
 
 /**
