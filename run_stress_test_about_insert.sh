@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 任何命令返回非零退出码时立即停止执行，并输出相应的错误信息
+set -e
+
+
 # 运行压力测试 并将结果输入到insert_test_result.txt 文件内
 
 echo -e "\n" > insert_test_result.txt
