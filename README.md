@@ -26,8 +26,7 @@
 - `stress_test`    压力测试的cpp文件
 - `CMakeLists.txt`    cmake配置文件
 - `auto_build.sh`    自动运行cmake配置文件并在终端输出main.cpp内容
-- `run_stress_test_about_insert.sh`    自动运行插入测试并重定向到文件内`insert_test_result.txt`
-- `insert_test_result.txt`    插入测试结果 
+- `.gitignore`   忽视`git`不必要提交的文件
 
 ## 提供接口
 
