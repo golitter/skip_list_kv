@@ -34,7 +34,7 @@ void TEST_s() {
 int main(int, char**){
 
     // 测试1
-    // TEST_f();
+    TEST_f();
 
     // 测试2
     TEST_s();
