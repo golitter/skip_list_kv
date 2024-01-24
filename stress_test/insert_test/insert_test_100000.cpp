@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <pthread.h>
 #include <time.h>
-#include "../include/skip_list.hpp"  // 请替换为实际的头文件路径
+#include "../../include/skip_list.hpp"  // 请替换为实际的头文件路径
 
 
 #define NUM_THREADS 1  // 根据需要设置线程数量

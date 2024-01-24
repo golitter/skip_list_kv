@@ -3,12 +3,12 @@
 #include <cstdlib>
 #include <pthread.h>
 #include <time.h>
-#include "../include/skip_list.hpp"  // 请替换为实际的头文件路径
+#include "../../include/skip_list.hpp"  // 请替换为实际的头文件路径
 
 
 #define NUM_THREADS 1  // 根据需要设置线程数量
 // #define TEST_COUNT 1000000
-int TEST_COUNT = 200000;
+int TEST_COUNT = 500000;
 int MAX_LEVEL = 18;
 SkipList<int, std::string> skipList(18);
 
@@ -23,18 +23,19 @@ void *insertElement(void* threadid) {
     }
     pthread_exit(NULL);
 }
-// 20万
-void test_200000();
 
+// 50万
+void test_500000();
 
 
 int main() {
-    test_200000();
+    test_500000();
     return 0;
 }
 
-void test_200000() {
-    TEST_COUNT = 200000;
+void test_500000() {
+    TEST_COUNT = 500000;
+
     srand (time(NULL));  
     pthread_t threads[NUM_THREADS];
 

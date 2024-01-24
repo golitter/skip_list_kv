@@ -1,0 +1,20 @@
+
+
+main() : creating insert thread, 0
+Insert Thread ID: 0
+Insert elapsed: 1.23554 seconds
+Insertions per second: 80936
+
+
+main() : creating insert thread, 0
+Insert Thread ID: 0
+Insert elapsed: 3.36714 seconds
+Insertions per second: 59397.6
+
+
+main() : creating insert thread, 0
+Insert Thread ID: 0
+Insert elapsed: 5.27453 seconds
+Insertions per second: 94795.2
+
+
