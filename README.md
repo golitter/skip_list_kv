@@ -20,7 +20,6 @@
 ## 项目文件
 
 - `main.cpp`    用调表进行数据操作
-- `build`    cmake构建目录
 - `include`    跳表及其结点的实现
 - `introduction`    项目讲解及备份等非项目必要内容
 - `stress_test`    压力测试的cpp文件
